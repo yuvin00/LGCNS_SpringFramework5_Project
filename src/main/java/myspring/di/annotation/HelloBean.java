@@ -7,11 +7,17 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
+/*
+ * 전략2 ( 어노테이션 + XML 같이 사용하는 방식 )
+ * Setter Injection 
+ * - 변수별로 각각 주입 받는 방식
+ */
+
 //@Component <=> <bean></bean>
 @Component
 public class HelloBean {
 	//@Value <=> <property name="name" value="어노테이션" />
-	@Value("어노테이션")
+	@Value("${app.setter.name}") //어노테이션
 	String name;
 	
 	//@Autowired <=> <property name="printer" ref="stringPrinter" />
@@ -19,6 +25,7 @@ public class HelloBean {
 	@Qualifier("stringPrinter")
 	PrinterBean printer;
 	
+	@Value("#{'${app.namelist}'.split(',')}") //Java,SpringFW,SpringBoot
 	List<String> names;
 
 	public HelloBean() {
